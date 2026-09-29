@@ -60,6 +60,17 @@ Reglas para no romper nada:
 | `[EJEMPLO]` | Contenido inventado de muestra: tasas, testimonios, hora de la llamada. **Reemplazar.** |
 | `[VALIDAR CON DAMIÁN]` | Textos y números generales (FAQ, % de inicial, gastos, impuestos) que Damián tiene que revisar. |
 
+### WhatsApp: número o link
+
+- **Con `whatsappNumero` completo (recomendado):** el formulario abre WhatsApp con las respuestas
+  ya escritas; la persona solo toca *enviar*.
+- **Sin número:** se usa `whatsappLink` (el link `wa.me/message/...` de su Instagram). Ese tipo de link
+  no permite dejar texto escrito, así que el formulario copia las respuestas y le pide a la persona
+  que las pegue en el chat.
+
+Ojo: mientras esté cargado el link real, las pruebas del formulario le llegan a Damián.
+Para probar sin molestarlo, poné tu propio número en `whatsappNumero`.
+
 Los testimonios muestran la etiqueta **"Testimonio de ejemplo"** mientras tengan `ejemplo: true`.
 Cuando cargues uno real, cambiá a `ejemplo: false`.
 

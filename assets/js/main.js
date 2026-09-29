@@ -77,7 +77,7 @@
   var FALLBACK = {
     nombre: 'Damián Peinado', cargo: 'Asesor hipotecario', nmls: '2713658',
     empresaNombre: '', empresaNmls: '',
-    whatsappNumero: '', whatsappMensaje: 'Hola Damián, quiero consultarte por un crédito para comprar en Miami.',
+    lema: 'All about Mortgage', whatsappNumero: '', whatsappLink: '', whatsappMensaje: 'Hola Damián, quiero consultarte por un crédito para comprar en Miami.',
     calendlyUrl: '', instagramUsuario: 'damian.miami', instagramUrl: 'https://www.instagram.com/damian.miami/',
     seguidores: '+61K', aniosEnBanca: 30,
     fotos: { hero: 'assets/img/damian-placeholder.svg', sobreMi: 'assets/img/damian-placeholder.svg' },
@@ -131,10 +131,31 @@
   var CIERRE_PCT = num(CALC.gastosCierrePorcentaje, 3);
   var PLACEHOLDER_IMG = 'assets/img/damian-placeholder.svg';
 
+  // Con número: el mensaje llega escrito. Sin número pero con link (wa.me/message/...):
+  // se abre ese link, que no admite texto (el formulario copia las respuestas).
+  var WA_NUMBER = String(C.whatsappNumero || '').replace(/\D/g, '');
+  var WA_LINK = String(C.whatsappLink || '').trim();
+  var WA_PREFILL = !!WA_NUMBER || !WA_LINK;
   function waUrl(msg) {
-    var number = String(C.whatsappNumero || '').replace(/\D/g, '');
-    var text = msg ? 'text=' + encodeURIComponent(msg) : '';
-    return number ? 'https://wa.me/' + number + (text ? '?' + text : '') : 'https://wa.me/' + (text ? '?' + text : '');
+    var text = msg ? '?text=' + encodeURIComponent(msg) : '';
+    if (WA_NUMBER) return 'https://wa.me/' + WA_NUMBER + text;
+    if (WA_LINK) return WA_LINK;
+    return 'https://wa.me/' + text;
+  }
+  function copyText(text) {
+    try {
+      if (navigator.clipboard && window.isSecureContext) { navigator.clipboard.writeText(text); return true; }
+    } catch (e) { /* sigue con el método viejo */ }
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.setAttribute('readonly', '');
+    ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;';
+    document.body.appendChild(ta);
+    ta.select();
+    var ok = false;
+    try { ok = document.execCommand('copy'); } catch (e) { ok = false; }
+    document.body.removeChild(ta);
+    return ok;
   }
 
   /* ───────────────────── Animaciones al scrollear ───────────────────── */
@@ -872,7 +893,12 @@
       e.preventDefault();
       if (cur !== TOTAL - 1) { next(); return; }
       if (!validateContact()) return;
-      var url = waUrl(buildMessage());
+      var msg = buildMessage();
+      var url = waUrl(msg);
+      if (!WA_PREFILL) copyText(msg);
+      $$('[data-done="prefill"]').forEach(function (el) { el.hidden = !WA_PREFILL; });
+      $$('[data-done="copy"]').forEach(function (el) { el.hidden = WA_PREFILL; });
+      lastMessage = msg;
       var win = window.open(url, '_blank');
       if (!win) window.location.href = url;
       else { try { win.opener = null; } catch (err) { /* nada */ } }
@@ -886,6 +912,13 @@
       if (card.getBoundingClientRect().top < 70) scrollToEl(card, 84);
     });
 
+    var lastMessage = '';
+    var copyBtn = $('#btn-copy');
+    if (copyBtn) copyBtn.addEventListener('click', function () {
+      var ok = copyText(lastMessage);
+      $('[data-out="copy-label"]').textContent = ok ? '¡Copiado! Pegalo en WhatsApp' : 'No se pudo copiar';
+    });
+
     $('#btn-restart').addEventListener('click', function () {
       answers = {};
       autoFilled = {};
@@ -893,6 +926,8 @@
       if (paisOtro) paisOtro.value = '';
       if (paisOtroWrap) paisOtroWrap.hidden = true;
       cur = 0;
+      var copyLabel = $('[data-out="copy-label"]');
+      if (copyLabel) copyLabel.textContent = 'Copiar respuestas de nuevo';
       $('#precal-done').hidden = true;
       $('#precal-flow').hidden = false;
       if (calcUsed) prefillFromCalc();

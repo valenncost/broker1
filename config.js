@@ -29,6 +29,7 @@ const CONFIG = {
 
   nombre: "Damián Peinado",
   cargo: "Asesor hipotecario", // [VALIDAR CON DAMIÁN] Cómo quiere presentarse (ej: "Loan Officer").
+  lema: "All about Mortgage",  // Frase chica debajo del nombre, arriba de todo (sacada de su Instagram).
   nmls: "2713658",             // Solo el número de licencia, sin la palabra NMLS.
 
   // Empresa o banco con el que trabaja. Si lo completás, aparece en el pie de página.
@@ -40,7 +41,13 @@ const CONFIG = {
   // Solo números: sin +, sin espacios, sin guiones.
   //   Argentina: 54 + 9 + 11 + 12345678  →  "5491112345678"
   //   EE.UU.:    1 + 305 + 1234567       →  "13051234567"
-  whatsappNumero: "5491100000000", // [COMPLETAR] Este número es de prueba.
+  // [COMPLETAR] Con el número, el formulario abre WhatsApp con el mensaje YA ESCRITO (lo ideal).
+  whatsappNumero: "",
+
+  // Link de WhatsApp de su Instagram. Se usa SOLO si whatsappNumero está vacío.
+  // Este tipo de link no permite dejar el mensaje escrito: el formulario copia las
+  // respuestas y le pide a la persona que las pegue en el chat.
+  whatsappLink: "https://wa.me/message/RPVBPVTLXC43K1",
 
   // Mensaje que aparece escrito cuando alguien toca "Hablar por WhatsApp".
   whatsappMensaje: "Hola Damián, vi tu página y quiero consultarte por un crédito para comprar en Miami.",
@@ -51,7 +58,7 @@ const CONFIG = {
 
   instagramUsuario: "damian.miami",
   instagramUrl: "https://www.instagram.com/damian.miami/",
-  seguidores: "+61K",
+  seguidores: "+61K", // En Instagram figura 61,8K.
   aniosEnBanca: 30,
 
 
@@ -138,8 +145,8 @@ const CONFIG = {
   sobreMi: {
     // [VALIDAR CON DAMIÁN] Cada texto entre comillas es un párrafo.
     parrafos: [
-      "Soy argentino y trabajé 30 años en banca. Sé cómo analiza un banco un pedido de crédito y sé lo que cuesta juntar cada dólar.",
-      "Hoy me dedico a una sola cosa: ayudar a argentinos y latinos a comprar su propiedad en Miami con crédito hipotecario, para que no tengan que poner todo en efectivo.",
+      "Soy argentino y fui banquero durante 30 años. Sé cómo analiza un banco un pedido de crédito y sé lo que cuesta juntar cada dólar.",
+      "Hoy ayudo a los amantes de Miami a comprar su propiedad con menos dólares: usando el crédito de un banco de EE.UU., en lugar de poner todo en efectivo.",
       "Te explico cada número en español, sin letra chica, y te acompaño desde la primera consulta hasta el cierre.",
     ],
 
@@ -147,7 +154,7 @@ const CONFIG = {
     datos: [
       { numero: "30", texto: "años de experiencia en banca" },
       { numero: "+61K", texto: "personas siguen sus consejos en Instagram" },
-      { numero: "100%", texto: "de la atención en español" }, // [VALIDAR CON DAMIÁN]
+      { numero: "+1.300", texto: "publicaciones en su Instagram" }, // En su perfil figuran 1.390.
     ],
   },
 
@@ -159,12 +166,15 @@ const CONFIG = {
        video:   un archivo .mp4 subido a assets/video (se reproduce en la página).
      portada: imagen vertical 9:16 para mostrar antes de reproducir (opcional).
      Si link y video están vacíos, se muestra una tarjeta con ▶ que abre su Instagram.
+     Los títulos son de reels reales de su perfil. [COMPLETAR] Pegá el link de cada uno
+     (en Instagram: tocá los tres puntos del reel → "Copiar enlace"). Si podés, elegí
+     reels que expliquen cómo funciona el crédito.
      ───────────────────────────────────────────────────────────── */
   reels: [
-    { titulo: "Cómo comprar en Miami sin pagar todo en efectivo", link: "", video: "", portada: "" }, // [COMPLETAR]
-    { titulo: "¿Cuánto necesitás de inicial?", link: "", video: "", portada: "" },                    // [COMPLETAR]
-    { titulo: "Crédito siendo extranjero: lo que tenés que saber", link: "", video: "", portada: "" }, // [COMPLETAR]
-    { titulo: "Renta vs. cuota: los números reales", link: "", video: "", portada: "" },              // [COMPLETAR]
+    { titulo: "Mentalidad sobre el dinero para operar en EE.UU.", link: "", video: "", portada: "" },
+    { titulo: "¿Qué está pasando en la costa de Miami?", link: "", video: "", portada: "" },
+    { titulo: "Están comprando todos los hoteles en South Beach", link: "", video: "", portada: "" },
+    { titulo: "Un sábado cualquiera en Miami", link: "", video: "", portada: "" },
   ],
 
 

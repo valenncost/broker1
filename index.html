@@ -89,7 +89,7 @@
     <div class="container-x flex h-16 items-center justify-between gap-4 lg:h-20">
       <a href="#inicio" class="flex flex-col leading-none" aria-label="Damián Peinado, ir al inicio">
         <span class="font-display text-[1.4rem] font-medium tracking-tight text-navy" data-cfg="nombre">Damián Peinado</span>
-        <span class="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-ink">Hipotecas en Miami</span>
+        <span class="mt-1 text-[10px] font-bold uppercase tracking-[0.2em] text-ink" data-cfg="lema">All about Mortgage</span>
       </a>
 
       <nav class="hidden lg:block" aria-label="Principal">
@@ -736,7 +736,11 @@
           <div id="precal-done" hidden class="py-4 text-center" tabindex="-1">
             <span class="mx-auto grid h-16 w-16 place-items-center rounded-full bg-navy text-gold"><svg class="h-8 w-8" aria-hidden="true"><use href="#i-check"/></svg></span>
             <h3 class="mt-5 font-display text-3xl font-medium text-navy">¡Listo, <span data-out="lead-nombre">gracias</span>!</h3>
-            <p class="mx-auto mt-3 max-w-sm leading-relaxed">Abrimos WhatsApp con tus respuestas. Solo tenés que tocar <b class="text-navy">enviar</b> y te respondemos con tu análisis.</p>
+            <p data-done="prefill" class="mx-auto mt-3 max-w-sm leading-relaxed">Abrimos WhatsApp con tus respuestas. Solo tenés que tocar <b class="text-navy">enviar</b> y te respondemos con tu análisis.</p>
+            <div data-done="copy" hidden>
+              <p class="mx-auto mt-3 max-w-sm leading-relaxed">Copiamos tus respuestas. En el chat de WhatsApp que se abrió, mantené apretado el cuadro de mensaje, tocá <b class="text-navy">Pegar</b> y enviá.</p>
+              <button type="button" id="btn-copy" class="btn btn-outline mt-6 w-full sm:w-auto"><svg aria-hidden="true"><use href="#i-doc"/></svg><span data-out="copy-label">Copiar respuestas de nuevo</span></button>
+            </div>
             <a id="done-wa" href="#" target="_blank" rel="noopener" class="btn btn-outline mt-6 w-full sm:w-auto"><svg class="text-wa-dark" aria-hidden="true"><use href="#i-wa"/></svg>¿No se abrió? Tocá acá</a>
             <button type="button" id="btn-restart" class="btn-ghost mt-2 w-full justify-center sm:w-auto">Empezar de nuevo</button>
           </div>
