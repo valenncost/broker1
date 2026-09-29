@@ -1,0 +1,438 @@
+/* Fuente de estilos de Tailwind. NO hace falta tocar este archivo para cambiar datos:
+   los datos están en config.js. Solo se recompila si se cambian clases en el HTML/JS
+   (ver README). El resultado compilado es assets/css/styles.css. */
+@import "tailwindcss" source(none);
+@source "../index.html";
+@source "../assets/js/main.js";
+
+@theme {
+  --color-navy: #0B1F3A;
+  --color-navy-950: #06142A;
+  --color-navy-800: #14305A;
+  --color-navy-700: #1E3C68;
+  --color-steel: #8FA8CC;
+  --color-steel-dark: #4F6D96;
+  --color-gold: #C9A24D;
+  --color-gold-light: #E3CD95;
+  --color-gold-soft: #F6EEDB;
+  --color-gold-deep: #7F6224;
+  --color-cream: #F7F5F0;
+  --color-cream-dark: #EEEAE0;
+  --color-ink: #4A5568;
+  --color-line: #E4DFD3;
+  --color-wa: #25D366;
+  --color-wa-dark: #1EAE55;
+
+  --font-display: "Fraunces", "Iowan Old Style", Georgia, serif;
+  --font-sans: "Manrope", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --shadow-card: 0 1px 2px rgba(11, 31, 58, 0.04), 0 12px 32px -14px rgba(11, 31, 58, 0.22);
+  --shadow-float: 0 2px 4px rgba(11, 31, 58, 0.05), 0 24px 48px -18px rgba(11, 31, 58, 0.35);
+  --shadow-gold: 0 12px 26px -12px rgba(160, 120, 40, 0.75);
+}
+
+/* ───────── Base ───────── */
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    scroll-padding-top: 5rem;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    html { scroll-behavior: smooth; }
+  }
+  body {
+    background: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  h1, h2, .font-display {
+    font-optical-sizing: auto;
+    letter-spacing: -0.015em;
+  }
+  ::selection { background: var(--color-gold-light); color: var(--color-navy); }
+  :focus-visible {
+    outline: 2px solid var(--color-navy);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+  .on-dark :focus-visible { outline-color: var(--color-gold); }
+  [hidden] { display: none !important; }
+  button { cursor: pointer; }
+  a, button, label, input { -webkit-tap-highlight-color: transparent; }
+}
+
+/* ───────── Componentes ───────── */
+@layer components {
+  .container-x {
+    width: 100%;
+    max-width: 72rem;
+    margin-inline: auto;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 640px) { .container-x { padding-inline: 2rem; } }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--color-navy);
+  }
+  .eyebrow::before {
+    content: "";
+    width: 1.5rem;
+    height: 1.5px;
+    background: var(--color-gold);
+  }
+  .on-dark .eyebrow { color: var(--color-gold-light); }
+
+  /* Botones */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    min-height: 3.25rem;
+    padding: 0.75rem 1.6rem;
+    border-radius: 999px;
+    font-weight: 700;
+    font-size: 1rem;
+    line-height: 1.2;
+    text-align: center;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
+    user-select: none;
+  }
+  .btn:active { transform: translateY(1px) scale(0.985); }
+  .btn svg { width: 1.2rem; height: 1.2rem; flex: none; }
+
+  .btn-primary {
+    background: var(--color-gold);
+    color: var(--color-navy);
+    box-shadow: var(--shadow-gold), inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  }
+  .btn-primary:hover { background: #D3AF5F; }
+  .btn-primary:disabled { opacity: 0.45; box-shadow: none; cursor: not-allowed; transform: none; }
+
+  .btn-outline {
+    border: 1.5px solid rgba(11, 31, 58, 0.16);
+    background: rgba(255, 255, 255, 0.65);
+    color: var(--color-navy);
+  }
+  .btn-outline:hover { border-color: rgba(11, 31, 58, 0.35); background: #fff; }
+
+  .btn-light { background: #fff; color: var(--color-navy); }
+  .btn-light:hover { background: var(--color-cream); }
+
+  .btn-outline-light {
+    border: 1.5px solid rgba(255, 255, 255, 0.28);
+    color: #fff;
+  }
+  .btn-outline-light:hover { border-color: rgba(255, 255, 255, 0.6); background: rgba(255, 255, 255, 0.06); }
+
+  .btn-ghost {
+    min-height: 3.25rem;
+    padding: 0.75rem 1rem;
+    border-radius: 999px;
+    font-weight: 700;
+    color: var(--color-navy);
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+  }
+  .btn-ghost:hover { background: var(--color-cream); }
+
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-weight: 700;
+    color: var(--color-navy);
+    text-decoration: underline;
+    text-decoration-color: var(--color-gold);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+    min-height: 2.75rem;
+  }
+  .link-arrow:hover { text-decoration-color: var(--color-navy); }
+  .on-dark .link-arrow { color: #fff; }
+
+  .card {
+    background: #fff;
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-card);
+    outline: 1px solid rgba(11, 31, 58, 0.05);
+  }
+
+  /* ───── Hero ───── */
+  .hero-stage {
+    display: grid;
+    gap: 0.75rem;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+      "photo photo"
+      "rate  fin"
+      "call  call"
+      "table table";
+  }
+  .hero-photo { grid-area: photo; }
+  .hero-rate  { grid-area: rate; }
+  .hero-call  { grid-area: call; }
+  .hero-table { grid-area: table; }
+  .hero-fin   { grid-area: fin; }
+
+  @media (min-width: 1024px) {
+    .hero-stage {
+      gap: 1.5rem 0;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+      grid-template-rows: auto auto;
+      grid-template-areas:
+        "rate  photo call"
+        "fin   photo table";
+      align-items: center;
+    }
+    .hero-rate, .hero-fin { justify-self: end; z-index: 2; }
+    .hero-rate { margin-right: 1.75rem; }
+    .hero-fin { margin-right: -2.25rem; }
+    .hero-call, .hero-table { justify-self: start; margin-left: -2.25rem; z-index: 2; }
+    .hero-rate  { align-self: end; margin-bottom: 1rem; }
+    .hero-fin   { align-self: start; margin-top: 1rem; }
+    .hero-call  { align-self: end; margin-bottom: 2.5rem; }
+    .hero-table { align-self: start; }
+  }
+
+  @media (min-width: 1024px) and (prefers-reduced-motion: no-preference) {
+    .float-a { animation: float 7s ease-in-out infinite; }
+    .float-b { animation: float 8s ease-in-out -2s infinite; }
+    .float-c { animation: float 9s ease-in-out -4s infinite; }
+  }
+
+  /* ───── Campos de la calculadora ───── */
+  .field-label {
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-navy);
+  }
+  .field-box {
+    margin-top: 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    min-height: 3.5rem;
+    padding: 0 1rem;
+    border-radius: 1rem;
+    background: var(--color-cream);
+    border: 1.5px solid transparent;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+  }
+  .field-box:focus-within { border-color: var(--color-navy); background: #fff; }
+  .field-affix { font-size: 0.875rem; font-weight: 700; color: var(--color-ink); }
+  .field-input {
+    flex: 1 1 0%;
+    width: 0;
+    min-width: 0;
+    background: transparent;
+    border: 0;
+    outline: none;
+    font-size: 1.25rem; /* ≥16px: evita el zoom automático en iPhone */
+    font-weight: 700;
+    color: var(--color-navy);
+    font-variant-numeric: tabular-nums;
+  }
+  .field-input:focus-visible { outline: none; }
+  .field-scale {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: rgba(74, 85, 104, 0.85);
+    margin-top: -0.1rem;
+  }
+
+  /* Slider */
+  .range {
+    --fill: 50%;
+    -webkit-appearance: none;
+    appearance: none;
+    display: block;
+    width: 100%;
+    height: 2.25rem;
+    margin-top: 0.35rem;
+    background: transparent;
+    cursor: pointer;
+    touch-action: pan-y;
+  }
+  .range:focus-visible { outline: none; }
+  .range::-webkit-slider-runnable-track {
+    height: 6px;
+    border-radius: 999px;
+    background: linear-gradient(to right, var(--color-navy) 0 var(--fill), var(--color-line) var(--fill) 100%);
+  }
+  .range::-moz-range-track { height: 6px; border-radius: 999px; background: var(--color-line); }
+  .range::-moz-range-progress { height: 6px; border-radius: 999px; background: var(--color-navy); }
+  .range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 28px;
+    height: 28px;
+    margin-top: -11px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 1px rgba(11, 31, 58, 0.12), 0 4px 10px rgba(11, 31, 58, 0.25);
+    transition: transform 0.15s ease;
+  }
+  .range::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--color-gold);
+    border: 4px solid #fff;
+    box-shadow: 0 0 0 1px rgba(11, 31, 58, 0.12), 0 4px 10px rgba(11, 31, 58, 0.25);
+  }
+  .range:active::-webkit-slider-thumb { transform: scale(1.12); }
+  .range:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 3px var(--color-navy), 0 4px 10px rgba(11, 31, 58, 0.25); }
+  .range:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 3px var(--color-navy); }
+
+  /* Botones de opción (plazo y formulario) */
+  .choice {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 3.5rem;
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    border: 1.5px solid var(--color-line);
+    background: #fff;
+    font-weight: 700;
+    color: var(--color-navy);
+    cursor: pointer;
+    transition: border-color 0.15s ease, background-color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .choice:hover { border-color: rgba(11, 31, 58, 0.35); }
+  .choice:has(input:checked) {
+    border-color: var(--color-navy);
+    background: var(--color-gold-soft);
+    box-shadow: inset 0 0 0 1px var(--color-navy);
+  }
+  .choice:has(input:focus-visible) { outline: 2px solid var(--color-navy); outline-offset: 2px; }
+  .choice-dot {
+    flex: none;
+    width: 1.25rem;
+    height: 1.25rem;
+    border-radius: 50%;
+    border: 2px solid var(--color-line);
+    display: grid;
+    place-items: center;
+    transition: border-color 0.15s ease;
+  }
+  .choice-dot::after {
+    content: "";
+    width: 0.55rem;
+    height: 0.55rem;
+    border-radius: 50%;
+    background: var(--color-navy);
+    transform: scale(0);
+    transition: transform 0.15s ease;
+  }
+  .choice:has(input:checked) .choice-dot { border-color: var(--color-navy); }
+  .choice:has(input:checked) .choice-dot::after { transform: scale(1); }
+
+  .segment {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    border-radius: 0.8rem;
+    font-weight: 700;
+    color: var(--color-ink);
+    cursor: pointer;
+    transition: background-color 0.15s ease, color 0.15s ease, box-shadow 0.15s ease;
+  }
+  .segment:has(input:checked) { background: var(--color-navy); color: #fff; box-shadow: 0 6px 16px -8px rgba(11, 31, 58, 0.6); }
+  .segment:has(input:focus-visible) { outline: 2px solid var(--color-navy); outline-offset: 2px; }
+
+  /* Desplegables animados (calculadora y FAQ) */
+  .drawer {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.3s ease;
+  }
+  .drawer.is-open { grid-template-rows: 1fr; }
+  .drawer > div { overflow: hidden; min-height: 0; }
+
+  .chev { transition: transform 0.3s ease; }
+  [aria-expanded="true"] .chev { transform: rotate(180deg); }
+  .faq-icon { transition: transform 0.3s ease; }
+  [aria-expanded="true"] .faq-icon { transform: rotate(45deg); }
+
+  .donut-seg { transition: stroke-dasharray 0.35s ease, stroke-dashoffset 0.35s ease; }
+
+  /* Pasos del formulario */
+  .step { animation: step-in 0.35s ease both; }
+
+  /* Tabla de tasas */
+  .rates-table th, .rates-table td { padding: 0.95rem 0.25rem; }
+  .rates-table tbody tr + tr { border-top: 1px solid var(--color-line); }
+
+  /* Reels */
+  .reel-bg {
+    background:
+      radial-gradient(120% 70% at 50% 0%, rgba(201, 162, 77, 0.28), transparent 60%),
+      linear-gradient(180deg, #14305A 0%, #0B1F3A 70%);
+  }
+
+  /* Animaciones al scrollear (solo si hay JS y el usuario no pidió menos movimiento) */
+  @media (prefers-reduced-motion: no-preference) {
+    .js .reveal {
+      opacity: 0;
+      transform: translateY(18px);
+      transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+      transition-delay: var(--d, 0s);
+    }
+    .js .reveal.is-visible { opacity: 1; transform: none; }
+  }
+
+  /* Barra fija inferior (celular) y botón de WhatsApp */
+  .sticky-cta {
+    transform: translateY(110%);
+    transition: transform 0.35s ease;
+  }
+  .sticky-cta.is-visible { transform: none; }
+  .wa-float { transition: transform 0.35s ease, bottom 0.35s ease; }
+  @media (max-width: 1023px) {
+    .has-sticky .wa-float { bottom: calc(5.5rem + env(safe-area-inset-bottom)); }
+  }
+
+  .header-scrolled {
+    background: rgba(247, 245, 240, 0.88);
+    box-shadow: 0 1px 0 rgba(11, 31, 58, 0.08);
+    -webkit-backdrop-filter: saturate(160%) blur(14px);
+    backdrop-filter: saturate(160%) blur(14px);
+  }
+}
+
+@utility tabular { font-variant-numeric: tabular-nums; }
+@utility pb-safe { padding-bottom: max(0.75rem, env(safe-area-inset-bottom)); }
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-8px); }
+}
+@keyframes step-in {
+  from { opacity: 0; transform: translateX(12px); }
+  to { opacity: 1; transform: none; }
+}
+@keyframes pulse-dot {
+  0% { box-shadow: 0 0 0 0 rgba(201, 162, 77, 0.7); }
+  100% { box-shadow: 0 0 0 8px rgba(201, 162, 77, 0); }
+}
+.pulse-dot { animation: pulse-dot 1.6s ease-out infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .pulse-dot, .step { animation: none; }
+}
